@@ -6,15 +6,24 @@
     android:gravity="bottom|center_horizontal"
     android:orientation="horizontal" >
 
+    <ImageView  android:id="@+id/backgroundView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/parallax-mountain-bg.png">
+    </ImageView>
+
+
     <ScrollView android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true">
         <ImageView
-            android:id="@+id/houseView"
+            android:id="@+id/scrollViewLayer_0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/house"/>
+            android:src="@drawable/parallax-mountain-mountains-far.png"/>
             <!--android:adjustViewBounds="true"-->
 
     </ScrollView>
