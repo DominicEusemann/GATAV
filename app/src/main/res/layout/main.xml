@@ -2,28 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#FFFFFFFF"
-    android:gravity="bottom|center_horizontal"
-    android:orientation="horizontal" >
+    android:background="#AB6A8C"
+    android:gravity="bottom|center_vertical"
+    android:orientation="vertical" >
 
     <ImageView  android:id="@+id/backgroundView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/parallax-mountain-bg.png">
+                android:src="@drawable/parallax_mountain_bg">
     </ImageView>
 
 
-    <ScrollView android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true">
         <ImageView
             android:id="@+id/scrollViewLayer_0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/parallax-mountain-mountains-far.png"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/parallax_mountain_mountain_far"/>
             <!--android:adjustViewBounds="true"-->
 
     </ScrollView>
