@@ -1,16 +1,10 @@
 package com.example.dominic.gatav;
 
 import android.app.Activity;
-import android.media.Image;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-
-import java.io.IOException;
-
 
 
 public class MainActivity extends Activity {
@@ -31,9 +25,13 @@ public class MainActivity extends Activity {
     //Image Resources
     private ImageView background;
     private ImageView scrollViewLayer_0;
+
     private ImageView scrollViewLayer_1;
+
     private ImageView scrollViewLayer_2;
+
     private ImageView scrollViewLayer_3;
+
     private ImageView scrollViewLayer_4;
 
     //Animation Rexources
@@ -75,7 +73,7 @@ public class MainActivity extends Activity {
 
         //first slow scrolling background-layer
         scrollViewLayer_0 = (ImageView) findViewById(R.id.scrollViewLayer_0);
-        scroll_layer_0 = AnimationUtils.loadAnimation(this, R.anim.scroll_layer_0);
+        scroll_layer_0 = AnimationUtils.loadAnimation(this, R.anim.scroll_layer_0_anim);
 
     /** Ausgangscode Bernd_2 Uebung
         // Redo durch click auf Bernd
@@ -176,11 +174,10 @@ public class MainActivity extends Activity {
             public void onAnimationStart(Animation animation) { }
 
             @Override
-            public void onAnimationEnd(Animation animation) { }
+            public void onAnimationEnd(Animation animation) { scrollViewLayer_0.startAnimation(scroll_layer_0); }
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
             }
         });
 

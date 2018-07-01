@@ -7,26 +7,23 @@
     android:orientation="vertical" >
 
     <ImageView  android:id="@+id/backgroundView"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="centerCrop"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/parallax_mountain_bg">
     </ImageView>
 
+    <ImageView
+        android:id="@+id/scrollViewLayer_0"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="bottom"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:src="@drawable/parallax_mountain_mountain_far"/>
 
-    <ScrollView android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true">
-        <ImageView
-            android:id="@+id/scrollViewLayer_0"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/parallax_mountain_mountain_far"/>
-            <!--android:adjustViewBounds="true"-->
-
-    </ScrollView>
 
     <ImageView
         android:id="@+id/berndView"
