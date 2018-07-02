@@ -12,6 +12,10 @@ public class Background {
         image = res;
     }
 
+    public Bitmap getImage() {
+        return this.image;
+    }
+
     public void update(){
         x+=dx;
         if(x<-MainThread.canvas.getWidth()){
@@ -21,9 +25,13 @@ public class Background {
 
     public void draw(Canvas canvas){
         y=0;
+        //testoutputs
+        System.out.println("Scaled Width: " + image.getScaledWidth(canvas) + ", Scaled Height: " + image.getScaledHeight(canvas));
+
         canvas.drawBitmap(image, x, y, null);
         if(x<0){
             canvas.drawBitmap(image, x+canvas.getWidth(), y, null);
+
         }
     }
 

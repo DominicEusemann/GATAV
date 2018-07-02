@@ -1,6 +1,7 @@
 package com.example.dominic.gatav;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public static final int WIDTH = 856;
     public static final int HEIGHT = 480;
+    private Bitmap bgBitmap;
     private Background background;
 
     private MainThread thread;
@@ -35,7 +37,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder holder) {
         thread = new MainThread(getHolder(),this);
 
-        background = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.bg));
+        bgBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
+        bgBitmap = Bitmap.createScaledBitmap(bgBitmap, 1920, 1080, false);
+
+        background = new Background(bgBitmap);
         background.setVector(-5);
 
         thread.setRunning(true);
@@ -78,9 +83,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         //final float scaleFactorY = (float) (canvas.getHeight() / HEIGHT);
         if(canvas != null){
             final int savedState = canvas.save();
-            canvas.scale(4, (float)1.26168);
+            //canvas.scale(scaleFactorX, scaleFactorY);
             background.draw(canvas);
-            canvas.restoreToCount(savedState);
+            //canvas.restoreToCount(savedState);
         }
     }
 }
