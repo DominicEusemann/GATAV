@@ -1,6 +1,7 @@
 package com.example.dominic.gatav;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -17,6 +18,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public static final int WIDTH = 856;
     public static final int HEIGHT = 480;
+
+    public static int statusbarHeight;
+
     private Bitmap bgBitmap;
     private Background background;
 
@@ -25,6 +29,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public GamePanel(Context context){
         super(context);
 
+            Resources resources = context.getResources();
+            int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
+            if (resourceId > 0) {
+                statusbarHeight = resources.getDimensionPixelSize(resourceId);
+            }
+
+
         getHolder().addCallback(this);
 
         thread = new MainThread(getHolder(), this);
@@ -32,14 +43,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         setFocusable(true);
     }
 
-
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         thread = new MainThread(getHolder(),this);
 
-        bgBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
-
-        //bgBitmap = Bitmap.createScaledBitmap(bgBitmap, 1920, 1080, false);
+        BitmapFactory.Options noScale = new BitmapFactory.Options();
+        noScale.inScaled = false;
+        bgBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bg, noScale);
 
         background = new Background(bgBitmap);
         background.setVector(-5);
@@ -80,13 +90,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void draw(Canvas canvas){
         super.draw(canvas);
-        //final float scaleFactorX = (canvas.getWidth() / WIDTH) * 1.0f;
-        //final float scaleFactorY = (canvas.getHeight() / HEIGHT) * 1.0f;
+        final float scaleFactorX = (canvas.getWidth() / WIDTH) * 1.0f;
+        final float scaleFactorY = (canvas.getHeight() / HEIGHT) * 1.0f;
         if(canvas != null){
             final int savedState = canvas.save();
-            //canvas.scale(scaleFactorX, scaleFactorY);
+            canvas.scale(scaleFactorX, scaleFactorY);
             background.draw(canvas);
-            //canvas.restoreToCount(savedState);
+
+            System.out.println("Canvas-Width: " + canvas.getWidth() + " Canvas-Height: " + canvas.getHeight());
+            System.out.println("Image-Width: " + bgBitmap.getWidth() + " Image-Height: " + bgBitmap.getHeight());
+            System.out.println("Scaled Width: " + bgBitmap.getScaledWidth(canvas) + ", Scaled Height: " + bgBitmap.getScaledHeight(canvas));
+            canvas.restoreToCount(savedState);
         }
     }
 }

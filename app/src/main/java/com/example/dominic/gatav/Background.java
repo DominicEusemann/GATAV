@@ -1,5 +1,8 @@
 package com.example.dominic.gatav;
 
+import android.app.ActionBar;
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
@@ -18,26 +21,22 @@ public class Background {
 
     public void update(){
         x+=dx;
-        if(x<-MainThread.canvas.getWidth()){
+        if(x<-image.getWidth()){
             x=0;
         }
     }
 
     public void draw(Canvas canvas){
-        y=0;
+        y = GamePanel.statusbarHeight;
         //testoutputs
-        System.out.println("Canvas-Width: " + canvas.getWidth() + " Canvas-Height: " + canvas.getHeight());
-        System.out.println("Image-Width: " + image.getWidth() + " Image-Height: " + image.getHeight());
-        System.out.println("Scaled Width: " + image.getScaledWidth(canvas) + ", Scaled Height: " + image.getScaledHeight(canvas));
 
         canvas.drawBitmap(image, x, y, null);
         if(x<0){
-            canvas.drawBitmap(image, x+canvas.getWidth(), y, null);
-
-        }
+            canvas.drawBitmap(image, x+image.getWidth(), y, null); }
     }
 
     public void setVector(int dx){
         this.dx = dx;
     }
+
 }

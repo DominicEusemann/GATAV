@@ -6,45 +6,4 @@
     android:gravity="bottom|center_vertical"
     android:orientation="vertical" >
 
-    <ImageView  android:id="@+id/backgroundView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/parallax_mountain_bg">
-    </ImageView>
-
-    <ImageView
-        android:id="@+id/scrollViewLayer_0"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="bottom"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
-        android:src="@drawable/parallax_mountain_mountain_far"/>
-
-
-    <ImageView
-        android:id="@+id/berndView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="bottom|center_horizontal"
-        android:visibility="invisible"
-        android:src="@drawable/bernd2" />
-
-    <ImageView
-        android:id="@+id/explosionView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="bottom|center_horizontal"
-        android:scaleType="fitEnd"
-        android:adjustViewBounds="true"
-        android:src="@drawable/explosion_half"
-        android:visibility="invisible" />
-
 </RelativeLayout>
