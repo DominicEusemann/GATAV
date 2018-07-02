@@ -26,6 +26,8 @@ public class Background {
     public void draw(Canvas canvas){
         y=0;
         //testoutputs
+        System.out.println("Canvas-Width: " + canvas.getWidth() + " Canvas-Height: " + canvas.getHeight());
+        System.out.println("Image-Width: " + image.getWidth() + " Image-Height: " + image.getHeight());
         System.out.println("Scaled Width: " + image.getScaledWidth(canvas) + ", Scaled Height: " + image.getScaledHeight(canvas));
 
         canvas.drawBitmap(image, x, y, null);

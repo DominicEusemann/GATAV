@@ -38,7 +38,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         thread = new MainThread(getHolder(),this);
 
         bgBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
-        bgBitmap = Bitmap.createScaledBitmap(bgBitmap, 1920, 1080, false);
+
+        //bgBitmap = Bitmap.createScaledBitmap(bgBitmap, 1920, 1080, false);
 
         background = new Background(bgBitmap);
         background.setVector(-5);
@@ -79,8 +80,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void draw(Canvas canvas){
         super.draw(canvas);
-        //final float scaleFactorX = (float) (canvas.getWidth() / WIDTH);
-        //final float scaleFactorY = (float) (canvas.getHeight() / HEIGHT);
+        //final float scaleFactorX = (canvas.getWidth() / WIDTH) * 1.0f;
+        //final float scaleFactorY = (canvas.getHeight() / HEIGHT) * 1.0f;
         if(canvas != null){
             final int savedState = canvas.save();
             //canvas.scale(scaleFactorX, scaleFactorY);
