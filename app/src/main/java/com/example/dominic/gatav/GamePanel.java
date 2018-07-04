@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -19,7 +20,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static final int WIDTH = 856;
     public static final int HEIGHT = 480;
 
-    public static int statusbarHeight;
+    public static DisplayMetrics metrics;
+    public static int screenWidth;
+    public static int screenHeight;
 
     private Bitmap backgroundSprite;
     private Background background;
@@ -32,11 +35,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public GamePanel(Context context){
         super(context);
 
-        Resources resources = context.getResources();
-        int resourceIdStatusbar = resources.getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceIdStatusbar > 0) {
-            statusbarHeight = resources.getDimensionPixelSize(resourceIdStatusbar);
-        }
+        metrics = context.getResources().getDisplayMetrics();
+        screenWidth = metrics.widthPixels;
+        screenHeight = metrics.heightPixels;
 
         getHolder().addCallback(this);
 
@@ -62,8 +63,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         background.setVector(-5);
 
         //creating a coin
-        coin = new YenCoin(coinSpriteSheet, GamePanel.WIDTH,
-                                            GamePanel.HEIGHT,
+        coin = new YenCoin(coinSpriteSheet, 0,
+                                            0,
                                             0, 0, 32, 32,5);
 
         //set and start thread
@@ -105,28 +106,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void draw(Canvas canvas){
         super.draw(canvas);
-        //scalefactors for background
-        final float scaleFactorX = (canvas.getWidth() / WIDTH) * 1.0f;
-        final float scaleFactorY = (canvas.getHeight() / HEIGHT) * 1.0f;
         if(canvas != null){
-            //cause draw gets called multiple times
-            //we need to save the canvas state and restore it after drawing
-            //so the resource does not scale to infinity
-            final int savedState = canvas.save();
-            canvas.scale(scaleFactorX, scaleFactorY);
-
-            //draw resources
+            //draw Game
             background.draw(canvas);
             coin.draw(canvas);
-
-            /* prints to debug scaling
-            System.out.println("Canvas-Width: " + canvas.getWidth() + " Canvas-Height: " + canvas.getHeight());
-            System.out.println("Image-Width: " + bgBitmap.getWidth() + " Image-Height: " + bgBitmap.getHeight());
-            System.out.println("Scaled Width: " + bgBitmap.getScaledWidth(canvas) + ", Scaled Height: " + bgBitmap.getScaledHeight(canvas));
-            */
-
-            //restoring saved canvas state before scaling
-            canvas.restoreToCount(savedState);
         }
     }
 }

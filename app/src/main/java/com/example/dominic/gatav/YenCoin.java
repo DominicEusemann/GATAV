@@ -23,7 +23,7 @@ public class YenCoin extends GameObject {
         }
 
         animation.setFrames(images);
-        animation.setDelay(30);
+        animation.setDelay(60);
         startTime = System.nanoTime();
 
     }

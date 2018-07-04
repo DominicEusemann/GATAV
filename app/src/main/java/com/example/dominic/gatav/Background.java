@@ -9,30 +9,37 @@ import android.graphics.Canvas;
 public class Background {
 
     private Bitmap image;
+    private Bitmap scaledImage;
+
     private int x, y, dx;
 
     public Background(Bitmap res){
         image = res;
+        scaledImage = Bitmap.createScaledBitmap(image, GamePanel.screenWidth, GamePanel.screenHeight, false);
+
+
     }
 
     public Bitmap getImage() {
         return this.image;
     }
 
+
     public void update(){
         x+=dx;
-        if(x<-image.getWidth()){
+        if(x<-scaledImage.getWidth()){
             x=0;
         }
     }
 
     public void draw(Canvas canvas){
-        y = GamePanel.statusbarHeight;
-        //testoutputs
 
-        canvas.drawBitmap(image, x, y, null);
+        canvas.drawBitmap(scaledImage, x, y, null);
+        canvas.drawBitmap(scaledImage, x+scaledImage.getWidth(), y, null);
+
         if(x<0){
-            canvas.drawBitmap(image, x+image.getWidth(), y, null); }
+            canvas.drawBitmap(scaledImage, x+ 2*scaledImage.getWidth(), y, null);
+        }
     }
 
     public void setVector(int dx){
