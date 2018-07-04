@@ -21,8 +21,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public static int statusbarHeight;
 
-    private Bitmap bgBitmap;
+    private Bitmap backgroundSprite;
     private Background background;
+
+    private Bitmap coinSpriteSheet;
+    private YenCoin coin;
 
     private MainThread thread;
 
@@ -46,15 +49,24 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder holder) {
         thread = new MainThread(getHolder(),this);
 
+        //Option for loading resources without auto scale
         BitmapFactory.Options noScale = new BitmapFactory.Options();
         noScale.inScaled = false;
-        bgBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bg, noScale);
 
-        Player player = new Player();
+        //loading resources
+        backgroundSprite = BitmapFactory.decodeResource(getResources(), R.drawable.bg, noScale);
+        coinSpriteSheet = BitmapFactory.decodeResource(getResources(), R.drawable.yen_coin_sheet, noScale);
 
-        background = new Background(bgBitmap);
+        //creating background and setting scrollspeed
+        background = new Background(backgroundSprite);
         background.setVector(-5);
 
+        //creating a coin
+        coin = new YenCoin(coinSpriteSheet, GamePanel.WIDTH,
+                                            GamePanel.HEIGHT,
+                                            0, 0, 32, 32,5);
+
+        //set and start thread
         thread.setRunning(true);
         thread.start();
     }
@@ -69,6 +81,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+        //terminate thread
         boolean retry = true;
         while(retry){
             try{
@@ -86,21 +99,33 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public void update(){
         background.update();
+        coin.update();
     }
 
     @Override
     public void draw(Canvas canvas){
         super.draw(canvas);
+        //scalefactors for background
         final float scaleFactorX = (canvas.getWidth() / WIDTH) * 1.0f;
         final float scaleFactorY = (canvas.getHeight() / HEIGHT) * 1.0f;
         if(canvas != null){
+            //cause draw gets called multiple times
+            //we need to save the canvas state and restore it after drawing
+            //so the resource does not scale to infinity
             final int savedState = canvas.save();
             canvas.scale(scaleFactorX, scaleFactorY);
-            background.draw(canvas);
 
+            //draw resources
+            background.draw(canvas);
+            coin.draw(canvas);
+
+            /* prints to debug scaling
             System.out.println("Canvas-Width: " + canvas.getWidth() + " Canvas-Height: " + canvas.getHeight());
             System.out.println("Image-Width: " + bgBitmap.getWidth() + " Image-Height: " + bgBitmap.getHeight());
             System.out.println("Scaled Width: " + bgBitmap.getScaledWidth(canvas) + ", Scaled Height: " + bgBitmap.getScaledHeight(canvas));
+            */
+
+            //restoring saved canvas state before scaling
             canvas.restoreToCount(savedState);
         }
     }
