@@ -29,12 +29,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public GamePanel(Context context){
         super(context);
 
-            Resources resources = context.getResources();
-            int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
-            if (resourceId > 0) {
-                statusbarHeight = resources.getDimensionPixelSize(resourceId);
-            }
-
+        Resources resources = context.getResources();
+        int resourceIdStatusbar = resources.getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceIdStatusbar > 0) {
+            statusbarHeight = resources.getDimensionPixelSize(resourceIdStatusbar);
+        }
 
         getHolder().addCallback(this);
 
@@ -50,6 +49,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         BitmapFactory.Options noScale = new BitmapFactory.Options();
         noScale.inScaled = false;
         bgBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bg, noScale);
+
+        Player player = new Player();
 
         background = new Background(bgBitmap);
         background.setVector(-5);
