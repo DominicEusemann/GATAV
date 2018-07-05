@@ -8,7 +8,7 @@ public class YenCoin extends GameObject {
     private Animation animation = new Animation();
     private long startTime;
 
-    public YenCoin(Bitmap spriteSheet, int posX, int posY, int dX, int dY, int width, int height, int numFrames){
+    public YenCoin(Bitmap spriteSheet, int posX, int posY, int dX, int dY, int width, int height, int frameCount){
         this.spriteSheet = spriteSheet;
         this.x = posX;
         this.y = posY;
@@ -17,7 +17,7 @@ public class YenCoin extends GameObject {
         this.width = width;
         this.height = height;
 
-        Bitmap[] images = new Bitmap[numFrames];
+        Bitmap[] images = new Bitmap[frameCount];
         for(int i=0; i<images.length; i++){
             images[i] = Bitmap.createBitmap(spriteSheet, (i * width), 0, width, height);
         }

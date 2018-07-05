@@ -23,7 +23,7 @@ public class Player extends GameObject {
         this.width = width;
 
         Bitmap[] images = new Bitmap[numFrames];
-        for(int i=0; i<images.length; i++){
+        for(int i=0; i<images.length-1; i++){
             images[i] = Bitmap.createBitmap(spriteSheet, (i * width), 0, width, height);
         }
 

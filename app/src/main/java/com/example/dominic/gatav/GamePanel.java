@@ -17,14 +17,11 @@ import android.widget.ImageView;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
-    public static final int WIDTH = 856;
-    public static final int HEIGHT = 480;
-
     public static DisplayMetrics metrics;
-    public static int screenWidth;
-    public static int screenHeight;
+    public static int WIDTH;
+    public static int HEIGHT;
 
-    private Bitmap backgroundSprite;
+    private Bitmap bgSpriteSheet;
     private Background background;
 
     private Bitmap coinSpriteSheet;
@@ -36,8 +33,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         super(context);
 
         metrics = context.getResources().getDisplayMetrics();
-        screenWidth = metrics.widthPixels;
-        screenHeight = metrics.heightPixels;
+        WIDTH = metrics.widthPixels;
+        HEIGHT = metrics.heightPixels;
 
         getHolder().addCallback(this);
 
@@ -55,12 +52,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         noScale.inScaled = false;
 
         //loading resources
-        backgroundSprite = BitmapFactory.decodeResource(getResources(), R.drawable.bg, noScale);
+        bgSpriteSheet = BitmapFactory.decodeResource(getResources(), R.drawable.bg_sprite_sheet, noScale);
         coinSpriteSheet = BitmapFactory.decodeResource(getResources(), R.drawable.yen_coin_sheet, noScale);
 
         //creating background and setting scrollspeed
-        background = new Background(backgroundSprite);
-        background.setVector(-5);
+        background = new Background(bgSpriteSheet, 5);
 
         //creating a coin
         coin = new YenCoin(coinSpriteSheet, 0,
