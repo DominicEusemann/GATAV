@@ -12,6 +12,7 @@ public class Background {
 
     private Bitmap spriteSheet;
     private Bitmap staticLayer;
+
     private Bitmap[] scaledLayers;
 
     private int[] x;
@@ -38,11 +39,11 @@ public class Background {
 
         //extract third to last sprite(scrolling layers) from spritesheet and scale to displaysize
         //scaledLayer[0] contains the first scrolling layer(second sprite from sheet) and so on
-        //scaling factors for layers with transparency is only calculated with screenwidth/spritewidth
-        // (same scalefactor on height) to keep ratio
+        //scaling factors for scrolling layers is height bound which means x-coordinate get scaled with
+        //scalefactorY too, to keep aspect ratio
 
         for(int i=1; i<scaledLayers.length; i++) {
-            scaledLayers[i] = Bitmap.createBitmap(spriteSheet, 0, (i-1) * y, spriteSheet.getWidth(), spriteHeight);
+            scaledLayers[i] = Bitmap.createBitmap(spriteSheet, 0, i * y, spriteSheet.getWidth(), spriteHeight);
             scaledLayers[i] = Bitmap.createScaledBitmap(scaledLayers[i], GamePanel.WIDTH, GamePanel.HEIGHT, false);
         }
 
@@ -58,7 +59,7 @@ public class Background {
 
         for (int i = 0; i < x.length; i++) {
             x[i] += scrollSpeed[i];
-            if (x[i] < - GamePanel.WIDTH) {
+            if (x[i] < (-scaledLayers[i].getWidth())) {
                 x[i] = 0;
             }
         }
@@ -68,16 +69,15 @@ public class Background {
     public void draw(Canvas canvas){
 
         //draw static background at x,y = 0
-        canvas.drawBitmap(staticLayer, 0, y, null);
-        canvas.drawBitmap(scaledLayers[0], 0, y, null);
+        canvas.drawBitmap(staticLayer, 0, 0, null);
 
         //loop to draw scrolling layers
-        for(int i=1; i<scaledLayers.length; i++){
-            canvas.drawBitmap(scaledLayers[i], x[i], y, null);
-            canvas.drawBitmap(scaledLayers[i], (x[i] + scaledLayers[i].getWidth()), y, null);
+        for(int i=0; i<scaledLayers.length; i++){
+            canvas.drawBitmap(scaledLayers[i], x[i], 0, null);
+            canvas.drawBitmap(scaledLayers[i], (x[i] + scaledLayers[i].getWidth()), 0, null);
 
             if(x[i]<0){
-                canvas.drawBitmap(scaledLayers[i], (x[i] + (2 * scaledLayers[i].getWidth())), y, null);
+                canvas.drawBitmap(scaledLayers[i], (x[i] + (2 * scaledLayers[i].getWidth())), 0, null);
             }
         }
 

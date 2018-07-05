@@ -33,7 +33,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         super(context);
 
         metrics = context.getResources().getDisplayMetrics();
-        WIDTH = metrics.widthPixels;
+        WIDTH =   metrics.widthPixels
+                + context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("navigation_bar_height", "dimen", "android"));
         HEIGHT = metrics.heightPixels;
 
         getHolder().addCallback(this);
