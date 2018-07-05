@@ -16,7 +16,8 @@ import android.widget.ImageView;
 
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
-
+    public static int NAV_BAR_WIDTH;
+    public static int TITLE_BAR_HEIGHT;
     public static DisplayMetrics metrics;
     public static int WIDTH;
     public static int HEIGHT;
@@ -31,10 +32,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public GamePanel(Context context){
         super(context);
-
+        NAV_BAR_WIDTH = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("navigation_bar_height", "dimen", "android"));
+        TITLE_BAR_HEIGHT = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("title_bar_height", "dimen", "android"));
         metrics = context.getResources().getDisplayMetrics();
-        WIDTH =   metrics.widthPixels
-                + context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("navigation_bar_height", "dimen", "android"));
+        WIDTH =   metrics.widthPixels + NAV_BAR_WIDTH;
         HEIGHT = metrics.heightPixels;
 
         getHolder().addCallback(this);
