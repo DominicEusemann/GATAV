@@ -3,6 +3,8 @@ package com.example.dominic.gatav;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
+import java.util.Random;
+
 public class YenCoin extends GameObject {
     private Bitmap spriteSheet;
     private Animation animation = new Animation();
@@ -23,13 +25,17 @@ public class YenCoin extends GameObject {
         }
 
         animation.setFrames(images);
-        animation.setDelay(60);
+        animation.setDelay(120);
         startTime = System.nanoTime();
 
     }
 
-    public void update(){ animation.update(); }
+    @Override
+    public void update(){
+        animation.update();
+    }
 
+    @Override
     public void draw(Canvas canvas){
         canvas.drawBitmap(animation.getImage(), x,y, null);
     }

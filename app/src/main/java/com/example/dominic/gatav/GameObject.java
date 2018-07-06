@@ -1,5 +1,7 @@
 package com.example.dominic.gatav;
 
+import android.graphics.Canvas;
+
 public abstract class GameObject {
     protected int x;
     protected int y;
@@ -26,6 +28,7 @@ public abstract class GameObject {
         return height;
     }
 
-
+    public void update(){};
+    public void draw(Canvas canvas){};
 
 }

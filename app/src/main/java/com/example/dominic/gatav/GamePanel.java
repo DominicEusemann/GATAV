@@ -25,6 +25,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap bgSpriteSheet;
     private Background background;
 
+    private Player supelMalio;
+    private Bitmap spritePlayerRun;
+
     private Bitmap coinSpriteSheet;
     private YenCoin coin;
 
@@ -33,10 +36,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public GamePanel(Context context){
         super(context);
         NAV_BAR_WIDTH = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("navigation_bar_height", "dimen", "android"));
-        TITLE_BAR_HEIGHT = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("title_bar_height", "dimen", "android"));
         metrics = context.getResources().getDisplayMetrics();
-        WIDTH =   metrics.widthPixels + NAV_BAR_WIDTH;
-        HEIGHT = metrics.heightPixels;
+        WIDTH   =   metrics.widthPixels + NAV_BAR_WIDTH;
+        HEIGHT  =   metrics.heightPixels;
 
         getHolder().addCallback(this);
 
@@ -56,9 +58,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         //loading resources
         bgSpriteSheet = BitmapFactory.decodeResource(getResources(), R.drawable.bg_sprite_sheet, noScale);
         coinSpriteSheet = BitmapFactory.decodeResource(getResources(), R.drawable.yen_coin_sheet, noScale);
+        spritePlayerRun = BitmapFactory.decodeResource(getResources(), R.drawable.player_run, noScale);
 
         //creating background and setting scrollspeed
         background = new Background(bgSpriteSheet, 5);
+
+        supelMalio = new Player(spritePlayerRun, 77, 132, 8);
 
         //creating a coin
         coin = new YenCoin(coinSpriteSheet, 0,
@@ -99,15 +104,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void update(){
         background.update();
         coin.update();
+        supelMalio.update();
     }
 
     @Override
     public void draw(Canvas canvas){
         super.draw(canvas);
         if(canvas != null){
-            //draw Game
+            //Gamelogic
             background.draw(canvas);
             coin.draw(canvas);
+            supelMalio.draw(canvas);
         }
     }
 }

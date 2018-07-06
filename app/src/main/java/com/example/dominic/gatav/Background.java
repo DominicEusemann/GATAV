@@ -42,9 +42,11 @@ public class Background {
         //scaling factors for scrolling layers should be width bound which means y-coordinate get scaled with
         //scalefactorX too, to keep aspect ratio
 
+        int scalefactorX = spriteHeight * Math.round(GamePanel.WIDTH / spriteSheet.getWidth());
+
         for(int i=1; i<scaledLayers.length; i++) {
             scaledLayers[i] = Bitmap.createBitmap(spriteSheet, 0, i * y, spriteSheet.getWidth(), spriteHeight);
-            scaledLayers[i] = Bitmap.createScaledBitmap(scaledLayers[i], GamePanel.WIDTH, spriteHeight * (GamePanel.WIDTH / spriteSheet.getWidth()), false);
+            scaledLayers[i] = Bitmap.createScaledBitmap(scaledLayers[i], GamePanel.WIDTH, scalefactorX, false);
         }
 
     }
@@ -74,7 +76,7 @@ public class Background {
         //loop to draw scrolling layers
         for(int i=0; i<scaledLayers.length; i++){
             y = 0;
-            if(i > 0) y =  scaledLayers[i].getHeight() + GamePanel.TITLE_BAR_HEIGHT;
+            if(i > 0) y =  GamePanel.HEIGHT - scaledLayers[i].getHeight();
             canvas.drawBitmap(scaledLayers[i], x[i], y, null);
             canvas.drawBitmap(scaledLayers[i], (x[i] + scaledLayers[i].getWidth()), y, null);
 
