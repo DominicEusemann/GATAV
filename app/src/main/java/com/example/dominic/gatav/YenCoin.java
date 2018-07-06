@@ -37,7 +37,7 @@ public class YenCoin extends GameObject {
 
     @Override
     public void draw(Canvas canvas){
-        canvas.drawBitmap(animation.getImage(), x,y, null);
+        canvas.drawBitmap(animation.getImage(), (int)(x),(int)(y), null);
     }
 
 

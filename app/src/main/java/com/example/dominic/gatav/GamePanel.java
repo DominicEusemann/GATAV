@@ -22,6 +22,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static int WIDTH;
     public static int HEIGHT;
 
+    //float initialX, initialY;
+
     private Bitmap bgSpriteSheet;
     private Background background;
 
@@ -96,9 +98,63 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    @Override
+   /* @Override
     public boolean onTouchEvent(MotionEvent event){
+
+        int touchMe = event.getActionMasked();
+
+        switch(touchMe)
+        {
+            case MotionEvent.ACTION_DOWN:
+                initialX = event.getX();
+                initialY = event.getY();
+                //Action was DOWN
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                //Action was MOVE
+                break;
+
+            case MotionEvent.ACTION_UP:
+                float finalX = event.getX();
+                float finalY = event.getY();
+
+
+                if (initialX < finalX) {
+                    //Left to Right swipe performed
+                }
+
+                if (initialX > finalX) {
+                    //Right to Left swipe performed
+                }
+
+                if (initialY < finalY) {
+                    //Up to Down swipe performed
+                }
+
+                if (initialY > finalY) {
+                    //Down to Up swipe performed
+                    supelMalio.setJump(true);
+                }
+                break;
+
+            case MotionEvent.ACTION_CANCEL:
+                //Action was CANCEL
+                break;
+
+            case MotionEvent.ACTION_OUTSIDE:
+                //Movement occurred outside bounds of current screen element
+                break;
+        }
+
+        Player.setJump(true);
         return super.onTouchEvent(event);
+    }*/
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        supelMalio.setJump(true);
+        return true;
     }
 
     public void update(){

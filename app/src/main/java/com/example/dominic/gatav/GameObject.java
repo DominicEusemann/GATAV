@@ -3,22 +3,22 @@ package com.example.dominic.gatav;
 import android.graphics.Canvas;
 
 public abstract class GameObject {
-    protected int x;
-    protected int y;
-    protected int dx;
-    protected int dy;
+    protected double x;
+    protected double y;
+    protected double dx;
+    protected double dy;
     protected int width;
     protected int height;
 
-    public int getX() {
+    public double getX() {
         return x;
     }
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public int getDX() { return dx;}
-    public int getDY() { return dy;}
+    public double getDX() { return dx;}
+    public double getDY() { return dy;}
 
 
     public int getWidth() {

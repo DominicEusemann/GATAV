@@ -1,7 +1,9 @@
 package com.example.dominic.gatav;
 
 import android.graphics.Canvas;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.view.View;
 
 public class MainThread extends Thread {
     public static final int MAX_FPS = 30;
@@ -10,6 +12,18 @@ public class MainThread extends Thread {
     private GamePanel gamePanel;
     private boolean running;
     public static Canvas canvas;
+    private static long timeMillis = 1000/MAX_FPS;
+
+    public static long getTimeMillis()
+    {
+        return timeMillis;
+    }
+
+    public static void setTimeMillis(long tM)
+    {
+        timeMillis = tM;
+        //System.out.print("TimeMillis:"+timeMillis);
+    }
 
     public void setRunning(boolean running){
         this.running = running;
@@ -24,7 +38,7 @@ public class MainThread extends Thread {
     @Override
     public void run(){
         long startTime;
-        long timeMillis = 1000/MAX_FPS;
+
         long waitTime;
         int frameCount = 0;
         long totalTime = 0;
@@ -48,7 +62,7 @@ public class MainThread extends Thread {
                     }catch(Exception e){ e.printStackTrace();}
                 }
             }
-            timeMillis = System.nanoTime() - startTime/1000000;
+            setTimeMillis(System.nanoTime() - startTime/1000000);
             waitTime = targetTime - timeMillis;
             try{
                 if(waitTime > 0)

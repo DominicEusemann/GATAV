@@ -5,6 +5,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 public class Player extends GameObject {
+
+    private int standard_dy = -125; //has to be <0
+
     private Bitmap spriteSheetRun;
     private Bitmap[] scaledSpritesRun;
     private Bitmap spriteSheetJump;
@@ -12,14 +15,19 @@ public class Player extends GameObject {
     private int score;
     private double dYa;
     private boolean playing;
-    private boolean jump;
+    private static boolean jump;
     private Animation animation = new Animation();
     private long startTime;
+
+    private double playerGravity = 100; //has to be >0
+    private double dt = 0;
+    private double currentTime = 0;
+    private double preTime = 0;
 
     public Player(Bitmap run, /*Bitmap jump,*/ int width, int height, int numFramesRun/*, int numFramesJump*/){
         super.x = GamePanel.WIDTH/8;
         super.y = GamePanel.HEIGHT - height;
-        super.dy = 0;
+        super.dy = standard_dy;
 
         this.spriteSheetRun = run ;
         //this.spriteSheetJump = jump;
@@ -61,7 +69,7 @@ public class Player extends GameObject {
         */
 
         animation.setFrames(scaledSpritesRun);
-        animation.setDelay(120);
+        animation.setDelay(90);
         startTime = System.nanoTime();
     }
 
@@ -75,21 +83,46 @@ public class Player extends GameObject {
         animation.update();
         if(jump){
             // player translation + jump animation
+            preTime = currentTime;
+            currentTime = MainThread.getTimeMillis();
+            dt = currentTime - preTime;
 
+            //System.out.print("Wert currentTime:" + currentTime + "  ");
 
+            if (dt > 0.04) dt = 0.04; // 30fps --> 1/30; 60fps --> 1/60
+            //System.out.print("dt-Wert:"+dt + "  ");
+            y = (int) (y+ 3*dt*dy);                         //*3, um Geschwindigkeit des Sprunges anzupassen
+            //System.out.println("Y-Wert:"+y + "  ");
+            dy = (int) (dy+ dt*playerGravity);
+            //System.out.println("dy-Wert:"+dy + "  ");
+
+            if(y > GamePanel.HEIGHT - height) //y > 1308
+            {
+                jump = false;
+                dt= 0;
+                dy=standard_dy;
+
+                y = GamePanel.HEIGHT - height - 1; //safety net (bottom)
+            }
+            if(y < 0)
+            {
+                dy = 0;
+                y = 0; //safety roof
+            }
+            //System.out.println("Y-Wert nach IFs:"+y + "  ");
         }
     }
 
     @Override
     public void draw(Canvas canvas){
-        canvas.drawBitmap(animation.getImage(), x,y, null);
+        canvas.drawBitmap(animation.getImage(), (int)(x),(int)(y), null);
     }
 
     public int getScore() { return this.score; }
     public boolean isPlaying() { return playing; }
 
     public void setPlaying(boolean playing) { this.playing = playing; }
-    public void setJump(boolean b) { jump = b; }
+    public static void setJump(boolean b) { jump = b; }
 
     public void resetDYA() { this.dYa = 0; }
     public void resteScore() { this.score = 0; }
