@@ -24,38 +24,54 @@ public class Player extends GameObject {
     private double currentTime = 0;
     private double preTime = 0;
 
-    public Player(Bitmap run, /*Bitmap jump,*/ int width, int height, int numFramesRun/*, int numFramesJump*/){
+    public Player(Bitmap run, int width, int height, int numFramesRun){
+
+        System.out.print("Width:" + width);  //<---- wtf why
+
         super.x = GamePanel.WIDTH/8;
         super.y = GamePanel.HEIGHT - height;
         super.dy = standard_dy;
 
         this.spriteSheetRun = run ;
         //this.spriteSheetJump = jump;
-        this.height = height;
-        this.width = width;
+        super.height = height;
+        super.width = width;
+
+        System.out.print(" \n  Etwas spätere Width:" + width);  //<---- wtf why
 
         scaledSpritesRun = new Bitmap[numFramesRun];
+        /*
         scaledSpritesRun[0] = Bitmap.createBitmap(spriteSheetRun, 0 * width, 0 * height , width, height);
+
+        System.out.print(" \n  Späte Width:" + width);
+
         scaledSpritesRun[1] = Bitmap.createBitmap(spriteSheetRun, 1 * width, 0 * height , width, height);
         scaledSpritesRun[2] = Bitmap.createBitmap(spriteSheetRun, 2 * width, 0 * height , width, height);
         scaledSpritesRun[3] = Bitmap.createBitmap(spriteSheetRun, 3 * width, 0 * height , width, height);
+
+        System.out.print(" \n  Noch spätere Width:" + width);
+
 
         scaledSpritesRun[4] = Bitmap.createBitmap(spriteSheetRun, 0 * width, 1 * height , width, height);
         scaledSpritesRun[5] = Bitmap.createBitmap(spriteSheetRun, 1 * width, 1 * height , width, height);
         scaledSpritesRun[6] = Bitmap.createBitmap(spriteSheetRun, 2 * width, 1 * height , width, height);
         scaledSpritesRun[7] = Bitmap.createBitmap(spriteSheetRun, 3 * width, 1 * height , width, height);
-        /*
 
-        wieso zur hölle nicht äquivalent zu dem obendrüber????? #schleifenkannich
+        */
+        //wieso zur hölle nicht äquivalent zu dem obendrüber????? #schleifenkannich
+
 
         int k = 0;
+
         for(int i=0; i<2; i++){
-            for(int j=0; i<numFramesRun/2; j++){
+            for(int j=0; j<numFramesRun/2; j++){
                 scaledSpritesRun[k] = Bitmap.createBitmap(spriteSheetRun, j * width, i * height , width, height);
                 k++;
             }
         }
-        */
+
+
+        System.out.print(" \n  Späteste Width:" + width);  //<---- wtf why Captain Bender why?
 
         /*
         scaledSpritesJump = new Bitmap[numFramesJump];
@@ -80,16 +96,20 @@ public class Player extends GameObject {
             score++;
             startTime = System.nanoTime();
         }
-        animation.update();
-        if(jump){
+        if(!isJumping())
+        {
+            animation.update();
+        }
+        else{
             // player translation + jump animation
+
             preTime = currentTime;
             currentTime = MainThread.getTimeMillis();
             dt = currentTime - preTime;
 
             //System.out.print("Wert currentTime:" + currentTime + "  ");
 
-            if (dt > 0.04) dt = 0.04; // 30fps --> 1/30; 60fps --> 1/60
+            if (dt > 0.08) dt = 0.08; // 30fps --> 1/30; 60fps --> 1/60 //Speed of Jump
             //System.out.print("dt-Wert:"+dt + "  ");
             y = (int) (y+ 3*dt*dy);                         //*3, um Geschwindigkeit des Sprunges anzupassen
             //System.out.println("Y-Wert:"+y + "  ");
@@ -98,7 +118,7 @@ public class Player extends GameObject {
 
             if(y > GamePanel.HEIGHT - height) //y > 1308
             {
-                jump = false;
+                setJump(false);
                 dt= 0;
                 dy=standard_dy;
 
@@ -122,9 +142,12 @@ public class Player extends GameObject {
     public boolean isPlaying() { return playing; }
 
     public void setPlaying(boolean playing) { this.playing = playing; }
-    public static void setJump(boolean b) { jump = b; }
 
     public void resetDYA() { this.dYa = 0; }
     public void resteScore() { this.score = 0; }
 
+    public boolean isJumping() { return this.jump; }
+    public void setJump(boolean b) { jump = b; }
 }
+
+

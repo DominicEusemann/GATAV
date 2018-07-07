@@ -21,10 +21,10 @@ public abstract class GameObject {
     public double getDY() { return dy;}
 
 
-    public int getWidth() {
+    public double getWidth() {
         return width;
     }
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
