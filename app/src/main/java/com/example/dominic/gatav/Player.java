@@ -64,9 +64,6 @@ public class Player implements GameObject {
         }
         */
 
-        System.out.print("Danke merkel!");
-
-
         /*
         scaledSpritesJump = new Bitmap[numFramesJump];
 
