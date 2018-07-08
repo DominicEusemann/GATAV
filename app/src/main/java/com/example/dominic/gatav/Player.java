@@ -73,9 +73,6 @@ public class Player extends GameObject {
 
         System.out.print(" \n  Späteste Width:" + width);  //<---- wtf why Captain Bender why?
 
-        System.out.print("Danke merkel!");
-
-
         /*
         scaledSpritesJump = new Bitmap[numFramesJump];
 
