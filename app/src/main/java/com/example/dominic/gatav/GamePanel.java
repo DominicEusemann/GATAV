@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -13,6 +14,8 @@ import android.view.SurfaceView;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import java.io.IOException;
 
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
@@ -73,6 +76,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                                             0, 0, 32, 32,5);
 
         //set and start thread
+
+
+
         thread.setRunning(true);
         thread.start();
     }
@@ -82,8 +88,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
     }
-
-
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
@@ -98,61 +102,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-   /* @Override
-    public boolean onTouchEvent(MotionEvent event){
-
-        int touchMe = event.getActionMasked();
-
-        switch(touchMe)
-        {
-            case MotionEvent.ACTION_DOWN:
-                initialX = event.getX();
-                initialY = event.getY();
-                //Action was DOWN
-                break;
-
-            case MotionEvent.ACTION_MOVE:
-                //Action was MOVE
-                break;
-
-            case MotionEvent.ACTION_UP:
-                float finalX = event.getX();
-                float finalY = event.getY();
-
-
-                if (initialX < finalX) {
-                    //Left to Right swipe performed
-                }
-
-                if (initialX > finalX) {
-                    //Right to Left swipe performed
-                }
-
-                if (initialY < finalY) {
-                    //Up to Down swipe performed
-                }
-
-                if (initialY > finalY) {
-                    //Down to Up swipe performed
-                    supelMalio.setJump(true);
-                }
-                break;
-
-            case MotionEvent.ACTION_CANCEL:
-                //Action was CANCEL
-                break;
-
-            case MotionEvent.ACTION_OUTSIDE:
-                //Movement occurred outside bounds of current screen element
-                break;
-        }
-
-        Player.setJump(true);
-        return super.onTouchEvent(event);
-    }*/
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if(!supelMalio.isJumping())
+        {
+           // Game.PlayJumpSound();
+        }
         supelMalio.setJump(true);
         return true;
     }

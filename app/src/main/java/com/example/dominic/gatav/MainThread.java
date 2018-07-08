@@ -1,9 +1,13 @@
 package com.example.dominic.gatav;
 
 import android.graphics.Canvas;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
+
+import java.io.IOException;
 
 public class MainThread extends Thread {
     public static final int MAX_FPS = 30;
@@ -43,6 +47,7 @@ public class MainThread extends Thread {
         int frameCount = 0;
         long totalTime = 0;
         long targetTime = 1000/MAX_FPS;
+
 
         while(running){
             startTime = System.nanoTime();
