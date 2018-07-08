@@ -3,6 +3,7 @@ package com.example.dominic.gatav;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
 public class Player implements GameObject {
 
@@ -30,6 +31,8 @@ public class Player implements GameObject {
     private double dy;
     private int width;
     private int height;
+
+    private Rect hitBox;
 
     public Player(Bitmap run, int width, int height, int numFramesRun){
 
@@ -147,4 +150,8 @@ public class Player implements GameObject {
 
     public boolean isJumping() { return this.jump; }
     public void setJump(boolean b) { jump = b; }
+
+    public Rect getHitbox() {
+        return hitBox;
+    }
 }

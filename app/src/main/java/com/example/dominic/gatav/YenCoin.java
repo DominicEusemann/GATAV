@@ -9,23 +9,19 @@ public class YenCoin extends Obstacle {
     private Animation animation = new Animation();
     private long startTime;
 
-    private double x;
-    private double y;
-    private double dx;
-    private double dy;
     private int width;
     private int height;
 
     public YenCoin(Bitmap spriteSheet, int posX, int posY, int dX, int dY, int width, int height, int frameCount, Rect hitBox){
         this.spriteSheet = spriteSheet;
-        this.x = posX;
-        this.y = posY;
-        this.dx = dX;
-        this.dy = dY;
+        setX(posX);
+        setY(posY);
+        setDx(dX);
+        setDy(dY);
         this.width = width;
         this.height = height;
 
-        super.setRectangle(hitBox);
+        super.setHitbox(hitBox);
 
         Bitmap[] images = new Bitmap[frameCount];
         for(int i=0; i<images.length; i++){
@@ -42,7 +38,7 @@ public class YenCoin extends Obstacle {
 
     public void update(){ animation.update(); }
 
-    public void draw(Canvas canvas){ canvas.drawBitmap(animation.getImage(), (int)(x),(int)(y), null); }
+    public void draw(Canvas canvas){ canvas.drawBitmap(animation.getImage(), (int)(getX()),(int)(getY()), null); }
 
 
 }

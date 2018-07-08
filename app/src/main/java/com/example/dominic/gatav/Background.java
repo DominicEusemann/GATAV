@@ -1,8 +1,5 @@
 package com.example.dominic.gatav;
 
-import android.app.ActionBar;
-import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 

@@ -1,24 +1,18 @@
 package com.example.dominic.gatav;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static int NAV_BAR_WIDTH;
-    public static int TITLE_BAR_HEIGHT;
     public static DisplayMetrics metrics;
     public static int WIDTH;
     public static int HEIGHT;
@@ -42,8 +36,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         super(context);
         NAV_BAR_WIDTH = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("navigation_bar_height", "dimen", "android"));
         metrics = context.getResources().getDisplayMetrics();
-        WIDTH   =   metrics.widthPixels + NAV_BAR_WIDTH;
-        HEIGHT  =   metrics.heightPixels;
+        Constants.SCREEN_WIDTH   =   metrics.widthPixels + NAV_BAR_WIDTH;
+        Constants.SCREEN_HEIGHT  =   metrics.heightPixels;
+        Constants.CURRENT_CONTEXT = context;
 
         getHolder().addCallback(this);
 

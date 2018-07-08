@@ -1,13 +1,8 @@
 package com.example.dominic.gatav;
 
 import android.graphics.Canvas;
-import android.media.MediaPlayer;
-import android.media.SoundPool;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
-import android.view.View;
 
-import java.io.IOException;
 
 public class MainThread extends Thread {
     public static final int MAX_FPS = 30;
