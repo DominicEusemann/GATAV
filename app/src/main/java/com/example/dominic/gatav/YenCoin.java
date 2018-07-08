@@ -2,15 +2,21 @@ package com.example.dominic.gatav;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
-import java.util.Random;
-
-public class YenCoin extends GameObject {
+public class YenCoin extends Obstacle {
     private Bitmap spriteSheet;
     private Animation animation = new Animation();
     private long startTime;
 
-    public YenCoin(Bitmap spriteSheet, int posX, int posY, int dX, int dY, int width, int height, int frameCount){
+    private double x;
+    private double y;
+    private double dx;
+    private double dy;
+    private int width;
+    private int height;
+
+    public YenCoin(Bitmap spriteSheet, int posX, int posY, int dX, int dY, int width, int height, int frameCount, Rect hitBox){
         this.spriteSheet = spriteSheet;
         this.x = posX;
         this.y = posY;
@@ -18,6 +24,8 @@ public class YenCoin extends GameObject {
         this.dy = dY;
         this.width = width;
         this.height = height;
+
+        super.setRectangle(hitBox);
 
         Bitmap[] images = new Bitmap[frameCount];
         for(int i=0; i<images.length; i++){
@@ -30,15 +38,11 @@ public class YenCoin extends GameObject {
 
     }
 
-    @Override
-    public void update(){
-        animation.update();
-    }
+    public int getHeight() { return height; }
 
-    @Override
-    public void draw(Canvas canvas){
-        canvas.drawBitmap(animation.getImage(), (int)(x),(int)(y), null);
-    }
+    public void update(){ animation.update(); }
+
+    public void draw(Canvas canvas){ canvas.drawBitmap(animation.getImage(), (int)(x),(int)(y), null); }
 
 
 }
