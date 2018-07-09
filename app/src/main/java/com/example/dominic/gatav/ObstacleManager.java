@@ -42,6 +42,15 @@ public class ObstacleManager {
         //}
     }
 
+    public boolean playerCollide(Player player)
+    {
+        for (Obstacle ob : obstacles)
+        {
+            if(ob.playerCollide(player)) return true;
+        }
+        return false;
+    }
+
     public void update(){
         long elapsedTime = System.currentTimeMillis() - startTime;
         startTime = System.currentTimeMillis();

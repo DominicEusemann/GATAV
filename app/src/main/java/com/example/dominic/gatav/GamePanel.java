@@ -1,6 +1,7 @@
 package com.example.dominic.gatav;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -31,6 +32,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private MainThread thread;
     private ObstacleManager obstacleManager;
+
+    private Intent gameOverIntent;
 
     public GamePanel(Context context){
         super(context);
@@ -66,14 +69,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         background = new Background(bgSpriteSheet, 5);
 
         supelMalio = new Player(spritePlayerRun, 77, 132, 8);
-
-        //creating a coin
-        /*coin = new YenCoin(coinSpriteSheet, 0,
-                                            0,
-                                            0, 0, 32, 32,5);
-
-        coinHitBox = new Rect(1,2,3,4);*/
-
 
         //set and start thread
         thread.setRunning(true);
@@ -114,10 +109,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public void update(){
         background.update();
-
         supelMalio.update();
-
         obstacleManager.update();
+
+        /*if(obstacleManager.playerCollide(supelMalio))
+        {
+            gameOverIntent = new Intent(Constants.CURRENT_CONTEXT, GameOver.class);
+        }*/
     }
 
     @Override

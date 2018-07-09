@@ -64,7 +64,6 @@ public class Obstacle implements GameObject{
         animation.setFrames(images);
         animation.setDelay(120);
         startTime = System.nanoTime();
-
     }
 
     public int getHeight() { return height; }

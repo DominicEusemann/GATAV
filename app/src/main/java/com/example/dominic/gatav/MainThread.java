@@ -13,6 +13,7 @@ public class MainThread extends Thread {
     public static Canvas canvas;
     private static long timeMillis = 1000/MAX_FPS;
 
+
     public static long getTimeMillis()
     {
         return timeMillis;
@@ -79,5 +80,4 @@ public class MainThread extends Thread {
             }
         }
     }
-
 }
