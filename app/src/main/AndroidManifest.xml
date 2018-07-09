@@ -4,17 +4,32 @@
 
     <uses-sdk android:minSdkVersion="7" />
 
-    <application
-        android:label="@string/app_name" >
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application android:label="@string/app_name">
         <activity
-            android:name="com.example.dominic.gatav.Game"
+            android:name=".Game"
             android:label="@string/app_name"
+            android:screenOrientation="landscape">
+
+        </activity>
+        <activity
+            android:name=".MenuActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".GameOver"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape">
         </activity>
     </application>
 

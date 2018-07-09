@@ -28,9 +28,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private Bitmap coinSpriteSheet;
     private Rect coinHitBox;
-    private YenCoin coin;
 
     private MainThread thread;
+    private ObstacleManager obstacleManager;
 
     public GamePanel(Context context){
         super(context);
@@ -44,6 +44,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         thread = new MainThread(getHolder(), this);
 
+        obstacleManager = new ObstacleManager(500);
+
         setFocusable(true);
     }
 
@@ -52,13 +54,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         thread = new MainThread(getHolder(),this);
 
         //Option for loading resources without auto scale
-        BitmapFactory.Options noScale = new BitmapFactory.Options();
-        noScale.inScaled = false;
+        Constants.NO_SCALE = new BitmapFactory.Options();
+        Constants.NO_SCALE.inScaled = false;
 
         //loading resources
-        bgSpriteSheet = BitmapFactory.decodeResource(getResources(), R.drawable.bg_sprite_sheet, noScale);
-        coinSpriteSheet = BitmapFactory.decodeResource(getResources(), R.drawable.yen_coin_sheet, noScale);
-        spritePlayerRun = BitmapFactory.decodeResource(getResources(), R.drawable.player_run, noScale);
+        bgSpriteSheet = BitmapFactory.decodeResource(getResources(), R.drawable.bg_sprite_sheet, Constants.NO_SCALE);
+        coinSpriteSheet = BitmapFactory.decodeResource(getResources(), R.drawable.yen_coin_sheet, Constants.NO_SCALE);
+        spritePlayerRun = BitmapFactory.decodeResource(getResources(), R.drawable.player_run, Constants.NO_SCALE);
 
         //creating background and setting scrollspeed
         background = new Background(bgSpriteSheet, 5);
@@ -66,11 +68,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         supelMalio = new Player(spritePlayerRun, 77, 132, 8);
 
         //creating a coin
-        coin = new YenCoin(coinSpriteSheet, 0,
+        /*coin = new YenCoin(coinSpriteSheet, 0,
                                             0,
-                                            0, 0, 32, 32,5, coinHitBox);
+                                            0, 0, 32, 32,5);
 
-        coinHitBox = new Rect(1,2,3,4);
+        coinHitBox = new Rect(1,2,3,4);*/
 
 
         //set and start thread
@@ -104,7 +106,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public boolean onTouchEvent(MotionEvent event) {
         if(!supelMalio.isJumping())
         {
-           // Game.PlayJumpSound();
+           //Game.PlayJumpSound();
         }
         supelMalio.setJump(true);
         return true;
@@ -112,8 +114,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public void update(){
         background.update();
-        coin.update();
+
         supelMalio.update();
+
+        obstacleManager.update();
     }
 
     @Override
@@ -122,8 +126,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         if(canvas != null){
             //Gamelogic
             background.draw(canvas);
-            coin.draw(canvas);
+
             supelMalio.draw(canvas);
+
+            obstacleManager.draw(canvas);
         }
     }
 }

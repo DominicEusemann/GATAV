@@ -29,21 +29,21 @@ public class Background {
 
 
         staticLayer = Bitmap.createBitmap(spriteSheet, 0, 0, (spriteSheet.getWidth()/2), spriteHeight);
-        staticLayer = Bitmap.createScaledBitmap(staticLayer, GamePanel.WIDTH, GamePanel.HEIGHT, false);
+        staticLayer = Bitmap.createScaledBitmap(staticLayer, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false);
 
         scaledLayers[0] = Bitmap.createBitmap(spriteSheet, (spriteSheet.getWidth() / 2), 0, (spriteSheet.getWidth() / 2), spriteHeight);
-        scaledLayers[0] = Bitmap.createScaledBitmap(scaledLayers[0], GamePanel.WIDTH, GamePanel.HEIGHT, false);
+        scaledLayers[0] = Bitmap.createScaledBitmap(scaledLayers[0], Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false);
 
         //extract third to last sprite(scrolling layers) from spritesheet and scale to displaysize
         //scaledLayer[0] contains the first scrolling layer(second sprite from sheet) and so on
         //scaling factors for scrolling layers should be width bound which means y-coordinate get scaled with
         //scalefactorX too, to keep aspect ratio
 
-        int scalefactorX = spriteHeight * Math.round(GamePanel.WIDTH / spriteSheet.getWidth());
+        int scalefactorX = spriteHeight * Math.round(Constants.SCREEN_WIDTH / spriteSheet.getWidth());
 
         for(int i=1; i<scaledLayers.length; i++) {
             scaledLayers[i] = Bitmap.createBitmap(spriteSheet, 0, i * y, spriteSheet.getWidth(), spriteHeight);
-            scaledLayers[i] = Bitmap.createScaledBitmap(scaledLayers[i], GamePanel.WIDTH, scalefactorX, false);
+            scaledLayers[i] = Bitmap.createScaledBitmap(scaledLayers[i], Constants.SCREEN_WIDTH, scalefactorX, false);
         }
 
     }
@@ -62,7 +62,6 @@ public class Background {
                 x[i] = 0;
             }
         }
-
     }
 
     public void draw(Canvas canvas){
@@ -73,7 +72,7 @@ public class Background {
         //loop to draw scrolling layers
         for(int i=0; i<scaledLayers.length; i++){
             y = 0;
-            if(i > 0) y =  GamePanel.HEIGHT - scaledLayers[i].getHeight();
+            if(i > 0) y =  Constants.SCREEN_HEIGHT - scaledLayers[i].getHeight();
             canvas.drawBitmap(scaledLayers[i], x[i], y, null);
             canvas.drawBitmap(scaledLayers[i], (x[i] + scaledLayers[i].getWidth()), y, null);
 

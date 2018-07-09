@@ -1,8 +1,14 @@
 package com.example.dominic.gatav;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Rect;
 
-public abstract class Obstacle implements GameObject{
+public class Obstacle implements GameObject{
+
+    private int id;
+
     private double x;
     private double y;
     private double dx;
@@ -24,13 +30,53 @@ public abstract class Obstacle implements GameObject{
     public void setHitbox(Rect hitBox){ this.hitBox = hitBox; }
     public Rect getHitbox(){ return hitBox; }
 
-    public void incrementX(double dX){
-        x += dX;
-        hitBox.left += dX;
-        hitBox.right += dX;
+    public void decrementX(double dX){
+        x -= dX;
+        hitBox.left -= dX;
+        hitBox.right -= dX;
     }
+
+
+
+    private Bitmap coin_spriteSheet;
+    private Animation animation = new Animation();
+    private long startTime;
+
+    private int width;
+    private int height;
+
+    public Obstacle(int id, int posX, int posY, int dX, int dY){
+        this.coin_spriteSheet = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.yen_coin_sheet, Constants.NO_SCALE);
+        setX(posX);
+        setY(posY);
+        setDx(dX);
+        setDy(dY);
+        this.width = 32;
+        this.height = 32;
+        Rect hitBox = new Rect(posX,posY,posX+width,posY+height);
+        setHitbox(hitBox);
+
+        Bitmap[] images = new Bitmap[5];
+        for(int i=0; i<images.length; i++){
+            images[i] = Bitmap.createBitmap(coin_spriteSheet, (i * width), 0, width, height);
+        }
+
+        animation.setFrames(images);
+        animation.setDelay(120);
+        startTime = System.nanoTime();
+
+    }
+
+    public int getHeight() { return height; }
+
+    public void update(){ animation.update(); }
+
+    public void draw(Canvas canvas){ canvas.drawBitmap(animation.getImage(), (int)this.x, (int)this.y, null); }
+
 
     public boolean playerCollide(Player player){
         return Rect.intersects(hitBox, player.getHitbox());
     }
+
+
 }

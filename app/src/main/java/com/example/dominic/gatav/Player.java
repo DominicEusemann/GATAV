@@ -1,7 +1,6 @@
 package com.example.dominic.gatav;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
@@ -38,8 +37,8 @@ public class Player implements GameObject {
 
         System.out.print("Width:" + width);  //<---- wtf why
 
-        this.x = GamePanel.WIDTH/8;
-        this.y = GamePanel.HEIGHT - height;
+        this.x = Constants.SCREEN_WIDTH/8;
+        this.y = Constants.SCREEN_HEIGHT - height;
         this.dy = standard_dy;
 
         this.spriteSheetRun = run ;
@@ -118,13 +117,13 @@ public class Player implements GameObject {
             dy = (int) (dy+ dt*playerGravity);
             //System.out.println("dy-Wert:"+dy + "  ");
 
-            if(y > GamePanel.HEIGHT - height) //y > 1308
+            if(y > Constants.SCREEN_HEIGHT - height) //y > 1308
             {
                 setJump(false);
                 dt= 0;
                 dy=standard_dy;
 
-                y = GamePanel.HEIGHT - height - 1; //safety net (bottom)
+                y = Constants.SCREEN_HEIGHT - height - 1; //safety net (bottom)
             }
             if(y < 0)
             {
