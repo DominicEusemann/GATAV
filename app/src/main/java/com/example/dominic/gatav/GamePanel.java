@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -17,6 +19,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static DisplayMetrics metrics;
     public static int WIDTH;
     public static int HEIGHT;
+
+    private Paint paint;
 
     //float initialX, initialY;
 
@@ -73,6 +77,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         //set and start thread
         thread.setRunning(true);
         thread.start();
+
+        obstacleManager.setScore(0);
     }
 
 
@@ -112,10 +118,19 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         supelMalio.update();
         obstacleManager.update();
 
-        if(obstacleManager.playerCollide(supelMalio))
+        if(obstacleManager.playerCollide(supelMalio)>=0)
         {
-            gameOverIntent = new Intent(Constants.CURRENT_CONTEXT, GameOver.class);
-            Constants.CURRENT_CONTEXT.startActivity(gameOverIntent);
+            if(obstacleManager.playerCollide(supelMalio) == 0) //Coin collected
+            {
+                obstacleManager.setScore(obstacleManager.getScore() +1);//+1 point
+            }
+
+            else if(obstacleManager.playerCollide(supelMalio) == 1) //Flame collide
+            {
+                gameOverIntent = new Intent(Constants.CURRENT_CONTEXT, GameOver.class);
+                // gameOverIntent.putExtra("Score", score);
+                Constants.CURRENT_CONTEXT.startActivity(gameOverIntent);
+            }
         }
     }
 
@@ -127,6 +142,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             background.draw(canvas);
             supelMalio.draw(canvas);
             obstacleManager.draw(canvas);
+
+            paint = new Paint();
+            paint.setTextSize(100);
+            paint.setColor(Color.WHITE);
+            canvas.drawText("" + obstacleManager.getScore(), 10, Constants.SCREEN_HEIGHT/15, paint);
         }
     }
 }
