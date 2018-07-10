@@ -112,10 +112,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         supelMalio.update();
         obstacleManager.update();
 
-        /*if(obstacleManager.playerCollide(supelMalio))
+        if(obstacleManager.playerCollide(supelMalio))
         {
             gameOverIntent = new Intent(Constants.CURRENT_CONTEXT, GameOver.class);
-        }*/
+            Constants.CURRENT_CONTEXT.startActivity(gameOverIntent);
+        }
     }
 
     @Override
@@ -124,9 +125,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         if(canvas != null){
             //Gamelogic
             background.draw(canvas);
-
             supelMalio.draw(canvas);
-
             obstacleManager.draw(canvas);
         }
     }

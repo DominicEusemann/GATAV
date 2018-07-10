@@ -46,6 +46,8 @@ public class Player implements GameObject {
         this.height = height;
         this.width = width;
 
+        hitBox = new Rect((int)x,(int)y,(int)x+width,(int)y+height);
+
         System.out.print(" \n  Etwas spätere Width:" + width);  //<---- wtf why
 
         scaledSpritesRun = new Bitmap[numFramesRun];
@@ -131,6 +133,7 @@ public class Player implements GameObject {
                 y = 0; //safety roof
             }
             //System.out.println("Y-Wert nach IFs:"+y + "  ");
+            hitBox.set((int)x,(int)y,(int)x+width,(int)y+height);
         }
     }
 
