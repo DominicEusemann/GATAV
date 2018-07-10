@@ -104,7 +104,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event)
+    {
         if(!supelMalio.isJumping())
         {
            //Game.PlayJumpSound();
@@ -113,7 +114,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         return true;
     }
 
-    public void update(){
+    public void update()
+    {
         background.update();
         supelMalio.update();
         obstacleManager.update();
@@ -135,7 +137,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @Override
-    public void draw(Canvas canvas){
+    public void draw(Canvas canvas)
+    {
         super.draw(canvas);
         if(canvas != null){
             //Gamelogic
